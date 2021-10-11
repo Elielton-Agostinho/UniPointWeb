@@ -1,5 +1,8 @@
 class LoginController < ApplicationController
   def index
+    if session[:aluno]
+      redirect_to '/aluno/index'
+    end
     render 'login/index'
   end
 
@@ -17,6 +20,7 @@ class LoginController < ApplicationController
     puts r['result']
 
     if r['result']
+      session[:user] = matricula
       redirect_to '/aluno/index'
     else
       @resposta = 'Erro: Login ou senha estão incorretos'

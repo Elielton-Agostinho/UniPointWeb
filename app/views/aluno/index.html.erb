@@ -1,2 +1,89 @@
-<h1>Aluno#index</h1>
-<p>Find me in app/views/aluno/index.html.erb</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+
+  <title>UniPoint</title>
+
+  <%= stylesheet_link_tag 'login', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+      #footer{
+          background-image: url("logo.png");
+          background-repeat: repeat;
+          position:absolute;
+          bottom:0;
+          height: 5em;
+          width: 93%;
+
+          /*background-color: red;*/
+      }
+  </style>
+</head>
+<body bgcolor="#f0f8ff">
+
+<div class="container">
+  <div class="row" style="padding-left: 5em; padding-top: 1em;"><!--Header-->
+    <div class="col-md-2"></div>
+    <div class="col-md" style="text-align: center;">
+      <%= image_tag('logo.png', :size => '30') %> <br/>
+      <h3>UniPoint</h3>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="row" style="padding-left: 0em; padding-top: 2em;"><!--body-->
+    <div class="col-md-3">
+      <div class="row">
+
+      </div>
+      <div class="row">
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>
+
+          <a href="#" class="list-group-item list-group-item-action list-group-item-primary">A simple primary list group item</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">A simple secondary list group item</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-success">A simple success list group item</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-danger">A simple danger list group item</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-warning">A simple warning list group item</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-info">A simple info list group item</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-light">A simple light list group item</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-dark">A simple dark list group item</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md" style="text-align: center;">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Disciplina</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Nome do Aluno</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="footer"><!--Footer-->
+    <div class="col-12"  style="text-align: center;">
+
+    </div>
+  </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
+-->
+</body>
+</html>
