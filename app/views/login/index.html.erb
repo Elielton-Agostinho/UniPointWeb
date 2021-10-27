@@ -12,64 +12,89 @@
 
   <%= stylesheet_link_tag 'login', media: 'all', 'data-turbolinks-track': 'reload' %>
   <style>
-    #footer{
-        background-image: url("logo.png");
-        background-repeat: repeat;
-        position:absolute;
-        bottom:0;
-        height: 5em;
-        width: 93%;
+      #footer{
+          background-image: url("logo.png");
+          background-repeat: repeat;
+          position:absolute;
+          bottom:0;
+          height: 5em;
+          width: 93%;
 
-        /*background-color: red;*/
-    }
+          /*background-color: red;*/
+      }
   </style>
 </head>
-<body bgcolor="#f0f8ff">
+<body style="background-color: #060A39">
 
 <div class="container">
-  <div class="row" style="padding-left: 5em; padding-top: 5em;"><!--Header-->
-    <div class="col-md-2"></div>
-    <div class="col-md" style="text-align: center;">
-      <%= image_tag('logo.png', :size => '100%xauto') %> <br/>
-      <h3>UniPoint</h3>
+  <div class="row" style="background-color: white; height: 50%; border-radius: 20px; margin-top: 4em">
+    <div class="col" style="text-align: center; padding: 2em">
+      <%= image_tag('img-lr.png', size: "400") %> <br/>
+      <div class="col">
+        <h3><strong>Um jeito fácil de marcar presença.</strong></h3> <br/>
+      </div>
+      <div class="col" style="font-weight: 400">
+        <p>Marcar presença em uma aula ou bater ponto  na empresa. </p>
+      </div>
     </div>
-    <div class="col-md-3"></div>
-  </div>
-  <div class="row" style="padding-left: 5em; padding-top: 2em;"><!--body-->
-    <div class="col-md-2"></div>
-    <div class="col-md" style="text-align: center;">
-      <form method="post" action="/login/">
-        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <div class="form-floating mb-3">
-            <input type="number" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email</label>
+    <div class="col">
+      <div class="col" style="text-align: center; padding-top: 5em">
+        <%= image_tag('logo.png', size: "80") %> <br/>
+        <h3>Unipoint</h3>
+
+        <div class="row" ><!--body-->
+          <div class="col-md-2"></div>
+          <div class="col-md">
+            <form method="post" action="/login/">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <div class="d-grid" style="margin-top: 2em">
+                <div class="form-floating mb-3">
+                  <input type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Matrícula</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Password">
+                  <label for="floatingPassword">Senha</label>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-check" style="margin-top: 1em">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <label style="font-size: smaller" class="form-check-label" for="flexCheckDefault">
+                        Permanecer conectado
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col" style="margin-top: 1em; align-items: flex-end">
+                    <a href="/forget_account/index" style="text-decoration: none; color: #060A39">Esqueci a senha</a>
+                  </div>
+                </div>
+                <br/>
+                <button class="btn btn-lg" type="submit" style="background-color: #060A39; color: white">Entrar</button>
+                <div class="col" style="margin-top: 1em; align-items: flex-end">
+                  <a>Não possui uma conta? <a style="color: #060A39" href="/register/index">Registre-se aqui</a> </a>
+                </div>
+                <div class="col">
+                  <div style="text-align: center;">
+                    <%
+                      if @resposta != ''
+                    %>
+                      <p style="color: red;"><%=@resposta %></p>
+                    <%
+                      end
+                      @resposta = ''
+                    %>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="form-floating">
-            <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Senha</label>
-          </div>
-          <br/>
-          <button class="btn btn-dark btn-lg" type="submit">Entrar</button>
+          <div class="col-md-2"></div>
         </div>
-      </form>
-    </div>
-    <div class="col-md-3"></div>
-  </div>
-  <div class="row" id="footer"><!--Footer-->
-    <div class="col-12"  style="text-align: center;">
-      <%
-        if @resposta != ''
-      %>
-        <p style="color: red;"><%=@resposta %></p>
-      <%
-        end
-        @resposta = ''
-      %>
+      </div>
     </div>
   </div>
 </div>
-
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <title>UniPoint</title>
+</head>
+<body style="background-color: white">
+
+<div class="container">
+  <div class="row" style="margin-top: 2em">
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col" style="display: flex; justify-content: center">
+          <%= image_tag('logo.png', size: "35") %>
+          <h3 style="padding-left: 0.5em">Unipoint</h3>
+        </div>
+      </div>
+      <div class="list-group" style="margin-top: 2em">
+        <button type="button" class="list-group-item list-group-item-action" >
+          <%= image_tag('home-solid.svg', size: "20") %>
+          Home
+        </button>
+        <button type="button" class="list-group-item list-group-item-action">
+          <%= image_tag('bell-solid.svg', size: "20") %>
+          Notificações
+          <span class="badge bg-dark">4</span>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action">
+          <%= image_tag('chalkboard-solid.svg', size: "20") %>
+          Turmas
+        </button>
+        <button type="button" class="list-group-item list-group-item-action">
+          <%= image_tag('history-solid.svg', size: "20") %>
+          Histórico
+        </button>
+        <button type="button" class="list-group-item list-group-item-action">
+          <%= image_tag('logout.svg', size: "20") %>
+          Sair
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6" style="width: 570px">
+      <div class="container">
+        <h1>Olá Eduardo 😀</h1>
+      </div>
+
+      <div class="row" style="margin-top: 1.5em; text-align: center">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">Turma N6ABCD</div>
+            <div class="card-body">
+              <h5 class="card-title">Aula Teste</h5>
+              <p class="card-text">Ideação e confecção do projeto de PA2.</p>
+              <a href="#" class="btn btn-primary">Confirmar presença</a>
+            </div>
+            <div class="card-footer text-muted">22/10/2021</div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="width: 570px; margin-top: 2em">
+        <div class="overflow-auto">
+          <ul class="list-group">
+            <h4>Próxima aula</h4>
+            <li class="list-group-item">N4CD - Teste de validação de sistemas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="row" style="text-align: center">
+        <div class="rounded-circle" style="border-radius: 100px">
+          <%= image_tag('profile-pic.jpg', size: "60") %>
+        </div>
+      </div>
+      <div class="row" style="text-align: center; margin-bottom: 1em">
+        <h3>Eduardo Santos</h3>
+      </div>
+      <div class="row" style="margin-bottom: 0.5em">
+        <div class="col">
+          Nome:
+        </div>
+        <div class="col" style="text-align: end">
+          <strong>Eduardo Santos</strong>
+        </div>
+      </div>
+
+      <div class="row" style="margin-bottom: 0.5em">
+        <div class="col">
+          Matrícula:
+        </div>
+        <div class="col" style="text-align: end">
+          <strong>2026439</strong>
+        </div>
+      </div>
+
+      <div class="row" style="margin-bottom: 0.5em">
+        <div class="col">
+          Email:
+        </div>
+        <div class="col" style="text-align: end">
+          <strong>dudus@gmail.com</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
+-->
+</body>
+</html>

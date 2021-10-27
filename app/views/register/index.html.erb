@@ -31,19 +31,39 @@
     <div class="col-md-2"></div>
     <div class="col" style="text-align: center; padding: 2em">
       <%= image_tag('logo.png', size: "100") %> <br/>
-      <h3>Esqueceu a sua senha?</h3>
-      <p>Informe seu email de cadastro para que possamos enviar um link para mudar a sua senha.</p>
+      <h3>Crie sua conta</h3>
       <form method="post" action="/register/">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <div class="d-grid" style="margin-top: 2em">
           <div class="form-floating mb-3">
+            <input type="file" id="user_avatar" name="user[avatar]" />
+          </div>
+          <div class="form-floating mb-3">
             <input type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Matrícula</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email</label>
           </div>
+          <div class="form-floating mb-3">
+            <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Senha">
+            <label for="floatingPassword">Senha</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" name="conf-senha" class="form-control" id="floatingPassword" placeholder="Confirme a sua senha">
+            <label for="floatingPassword">Comfirme a senha</label>
+          </div>
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Tipo de usuário</option>
+            <option value="1">Aluno</option>
+            <option value="2">Professor</option>
+            <option value="3">Funcionário</option>
+          </select>
           <br/>
-          <button class="btn btn-lg" type="submit" style="background-color: #060A39; color: white">Enviar</button>
+          <button class="btn btn-lg" type="submit" style="background-color: #060A39; color: white" href="#">Registrar</button>
           <div class="col" style="margin-top: 1em; align-items: flex-end">
-            <a>Lembrou da senha? <a style="color: #060A39" href="/login/index">Faça o login aqui</a> </a>
+            <a>Já tem uma conta? <a style="color: #060A39" href="/login/index">Faça o login aqui</a> </a>
           </div>
           <div class="col">
             <div style="text-align: center;">
