@@ -21,7 +21,7 @@ class LoginController < ApplicationController
 
     if r['result']
       session[:user] = matricula
-      redirect_to '/aluno/index'
+      redirect_to '/dashboard_aluno/index'
     else
       @resposta = 'Erro: Login ou senha estão incorretos'
       render 'login/index'
