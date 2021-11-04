@@ -39,27 +39,39 @@
           <%= image_tag('history-solid.svg', size: "20") %>
           Histórico
         </button>
-        <button type="button" class="list-group-item list-group-item-action">
+        <a type="button" class="list-group-item list-group-item-action" href="/logout/index">
           <%= image_tag('logout.svg', size: "20") %>
           Sair
-        </button>
+        </a>
       </div>
     </div>
     <div class="col-md-6" style="width: 570px">
       <div class="container">
-        <h1>Olá Eduardo 😀</h1>
+        <h1>Olá <%=@primeiroNome %> 😀</h1>
       </div>
 
       <div class="row" style="margin-top: 1.5em; text-align: center">
         <div class="col">
           <div class="card">
-            <div class="card-header">Turma N6ABCD</div>
+            <div class="card-header">Turma <%=@horario %></div>
             <div class="card-body">
-              <h5 class="card-title">Aula Teste</h5>
-              <p class="card-text">Ideação e confecção do projeto de PA2.</p>
-              <a href="#" class="btn btn-primary">Confirmar presença</a>
+              <h5 class="card-title"><%=@disciplina %></h5>
+              <p class="card-text">Aqui ficará o status da presença (Aberto/Fechado)</p>
+              <% if @marcacao == true && @ponto == true then %>
+                <form method="post" action="/dashboard_aluno/">
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                  <input type="text" name="disciplina" value="<%=@id_disciplina %>" hidden>
+                  <input type="text" name="tipo" value="<%=@tipo %>" hidden>
+                  <button type="submit" class="btn btn-primary">Confirmar presença</button>
+                </form>
+              <%else
+                  if @ponto == false then%>
+                  <button type="button" class="btn btn-success" disabled>Presença Confirmada</button>
+                  <%end %>
+              <% end %>
+              <%=@respostaMark %>
             </div>
-            <div class="card-footer text-muted">22/10/2021</div>
+            <div class="card-footer text-muted"><%= Time.now.strftime("%d/%m/%Y") %></div>
           </div>
         </div>
       </div>
@@ -79,14 +91,14 @@
         </div>
       </div>
       <div class="row" style="text-align: center; margin-bottom: 1em">
-        <h3>Eduardo Santos</h3>
+        <h3><%=@nome %></h3>
       </div>
       <div class="row" style="margin-bottom: 0.5em">
         <div class="col">
           Nome:
         </div>
         <div class="col" style="text-align: end">
-          <strong>Eduardo Santos</strong>
+          <strong><%=@nome %></strong>
         </div>
       </div>
 
@@ -95,7 +107,7 @@
           Matrícula:
         </div>
         <div class="col" style="text-align: end">
-          <strong>2026439</strong>
+          <strong><%=session[:user] %></strong>
         </div>
       </div>
 
@@ -104,7 +116,7 @@
           Email:
         </div>
         <div class="col" style="text-align: end">
-          <strong>dudus@gmail.com</strong>
+          <strong><%=@email %></strong>
         </div>
       </div>
     </div>
