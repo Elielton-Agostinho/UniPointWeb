@@ -57,7 +57,7 @@
             <div class="card-body">
               <h5 class="card-title"><%=@disciplina %></h5>
               <p class="card-text">Aqui ficará o status da presença (Aberto/Fechado)</p>
-              <% if @marcacao == true && @ponto == true then %>
+              <% if @marcacao == true && @ponto == true && @semDic == 1 then %>
                 <form method="post" action="/dashboard_aluno/">
                   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
                   <input type="text" name="disciplina" value="<%=@id_disciplina %>" hidden>
@@ -67,7 +67,11 @@
               <%else
                   if @ponto == false then%>
                   <button type="button" class="btn btn-success" disabled>Presença Confirmada</button>
-                  <%end %>
+                  <%end
+                    if @semDic == 0 then%>
+                  <button type="button" class="btn btn-success" disabled>Você Não Tem Disciplinas Neste Horário</button>
+                <%end %>
+
               <% end %>
               <%=@respostaMark %>
             </div>
