@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'login_prof/index'
   get 'professor/index'
   get 'logout/index'
   get 'register/index'
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   get 'aluno/index'
   get 'login/index'
   post 'login', to: 'login#create'
+  post 'login_prof', to: 'login_prof#create'
   post 'dashboard_aluno', to: 'dashboard_aluno#create'
 
 

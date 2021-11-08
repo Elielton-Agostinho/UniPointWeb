@@ -13,6 +13,7 @@ class DashboardAlunoController < ApplicationController
       d = DateTime.now
       dia = d.strftime("%A")
       hora = d.strftime("%H")
+      horaMin = d.strftime("%H,%M")
 
       semanaD = {"Monday" => 2,"Tuesday" => 3,"Wednesday" => 4, "Thursday" => 5, "Friday" => 6, "Saturday" => 7}
 
@@ -24,7 +25,8 @@ class DashboardAlunoController < ApplicationController
       end
 
       periodo = ''
-      case hora.to_f # a_variable is the variable we want to compare
+      puts horaMin
+      case horaMin.to_f # a_variable is the variable we want to compare
       when 6,30..8,59 then periodo = "AB"
       when 9..12,59  then periodo = "CD"
       when 13..14,59  then periodo = "AB"

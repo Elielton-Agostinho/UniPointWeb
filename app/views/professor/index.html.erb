@@ -61,7 +61,7 @@
             <div class="dropdown" style="margin-left: 1em">
               <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                <span class="d-none d-sm-inline mx-1" style="padding-left: 1em; color: black">Eduardo Santos</span>
+                <span class="d-none d-sm-inline mx-1" style="padding-left: 1em; color: black"><%=@nome %></span>
               </a>
               <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item" href="#">Configurações</a></li>
@@ -115,14 +115,27 @@
                   </ul>
                 </div>
                 <div class="col" style="display: flex; justify-content: flex-end">
-                  <button type="button" class="btn btn-primary" disabled style="background-color: #060A39; border: none">Abrir presença</button>
+                  <button type="button" class="btn btn-primary" disabled style="background-color: #060A39; border: none;">Abrir presença</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+        <div class="col-md"><!--Bater Ponto-->
+          <div class="card" style="margin-top: 4em; border: none; background-color: #ffc756">
+            <div class="card-body">
+              <h5 class="card-title">Ponto Eletrônico</h5>
+              <div class="row" style="margin-top: 2em;padding: 0px 2em;">
+                <button type="button" class="btn" style=" background-color: #060A39; border: none; color: #fff;">Registrar Agora</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+
       <div class="col-md" style="text-align: center; margin-left: 1.5em">
         <div class="row" style="margin-top: 2em">
           <div class="overflow-auto">

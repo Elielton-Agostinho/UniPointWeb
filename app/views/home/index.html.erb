@@ -27,38 +27,17 @@
 <body style="background-color: #060A39">
 
 <div class="container">
-  <div class="row" style="background-color: white; height: 50%; border-radius: 20px; margin-top: 4em; margin-bottom: 4em">
+  <div class="row" style="">
     <div class="col-md-2"></div>
-    <div class="col" style="text-align: center; padding: 2em">
+    <div class="col-md" style="text-align: center; padding: 2em; background-color: white; height: 50%; border-radius: 20px; margin-top: 4em; margin-bottom: 4em;">
       <%= image_tag('logo.png', size: "100") %> <br/>
-      <h3>Esqueceu a sua senha?</h3>
-      <p>Informe seu email de cadastro para que possamos enviar um link para mudar a sua senha.</p>
-      <form method="post" action="/register/">
-        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <h3>Área para Acesso</h3>
+      <p>Escolha seu tipo de acesso:</p>
         <div class="d-grid" style="margin-top: 2em">
-          <div class="form-floating mb-3">
-            <input type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email</label>
-          </div>
-          <br/>
-          <button class="btn btn-lg" type="submit" style="background-color: #060A39; color: white">Enviar</button>
-          <div class="col" style="margin-top: 1em; align-items: flex-end">
-            <a>Lembrou da senha? <a style="color: #060A39" href="/login/index">Faça o login aqui</a> </a>
-          </div>
-          <div class="col">
-            <div style="text-align: center;">
-              <%
-                if @resposta != ''
-              %>
-                <p style="color: red;"><%=@resposta %></p>
-              <%
-                end
-                @resposta = ''
-              %>
-            </div>
-          </div>
+          <a href="/login/index" class="btn btn-lg" type="submit" style="background-color: #fff; color: #060A39; border: 1px solid #000;">ALUNO</a><br/>
+          <a href="/login_prof/index" class="btn btn-lg" type="submit" style="background-color: #060A39; color: white;">PROFESSOR</a>
+
         </div>
-      </form>
     </div>
     <div class="col-md-2"></div>
   </div>
