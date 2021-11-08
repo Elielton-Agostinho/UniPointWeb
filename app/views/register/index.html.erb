@@ -28,10 +28,12 @@
 
 <div class="container">
   <div class="row" style="background-color: white; height: 50%; border-radius: 20px; margin-top: 4em; margin-bottom: 4em">
-    <div class="col-md-2"></div>
+    <div class="col" style="text-align: center; padding-top: 5em">
+      <%= image_tag('Profile picture.png', width: 500, height: 400) %> <br/>
+      <h2>Crie sua conta.</h2>
+      <p>Para ter acesso ao nosso sistema.</p>
+    </div>
     <div class="col" style="text-align: center; padding: 2em">
-      <%= image_tag('logo.png', size: "100") %> <br/>
-      <h3>Crie sua conta</h3>
       <form method="post" action="/register/">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <div class="d-grid" style="margin-top: 2em">
@@ -52,7 +54,7 @@
           </div>
           <div class="form-floating mb-3">
             <input type="password" name="conf-senha" class="form-control" id="floatingPassword" placeholder="Confirme a sua senha">
-            <label for="floatingPassword">Comfirme a senha</label>
+            <label for="floatingPassword">Confirme a senha</label>
           </div>
           <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
             <option selected>Tipo de usuário</option>
@@ -61,7 +63,7 @@
             <option value="3">Funcionário</option>
           </select>
           <br/>
-          <button class="btn btn-lg" type="submit" style="background-color: #060A39; color: white" href="#">Registrar</button>
+          <button class="btn btn-lg" type="submit" style="background-color: #060A39; color: white" href="/dasboard_aluno/index">Registrar</button>
           <div class="col" style="margin-top: 1em; align-items: flex-end">
             <a>Já tem uma conta? <a style="color: #060A39" href="/login/index">Faça o login aqui</a> </a>
           </div>
@@ -80,7 +82,6 @@
         </div>
       </form>
     </div>
-    <div class="col-md-2"></div>
   </div>
 </div>
 <!-- Optional JavaScript; choose one of the two! -->

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'professor/index'
   get 'logout/index'
   get 'register/index'
   get 'forget_account/index'
