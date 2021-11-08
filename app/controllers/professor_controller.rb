@@ -12,7 +12,7 @@ class ProfessorController < ApplicationController
   def getUsuario(matricula)
     require 'http'
 
-    response = HTTP.post("http://localhost:5000/getProfessor", :form => {'matricula' => matricula})
+    response = HTTP.post("https://unipointapi.herokuapp.com/getProfessor", :form => {'matricula' => matricula})
     response.body # retorna um objeto representando a resposta
     response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
 

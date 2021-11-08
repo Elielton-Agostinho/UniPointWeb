@@ -11,7 +11,7 @@ class LoginProfController < ApplicationController
     matricula = params[:email]
     senha = params[:senha]
 
-    response = HTTP.post("http://localhost:5000/loginProf", :form => {'matricula' => matricula, 'senha' => senha })
+    response = HTTP.post("https://unipointapi.herokuapp.com/loginProf", :form => {'matricula' => matricula, 'senha' => senha })
     response.body # retorna um objeto representando a resposta
     response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
 
