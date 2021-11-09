@@ -7,125 +7,197 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <title>UniPoint</title>
-</head>
-<body style="background-color: white">
 
-<div class="container">
-  <div class="row" style="margin-top: 2em">
-    <div class="col-md-3">
-      <div class="row">
-        <div class="col" style="display: flex; justify-content: center">
-          <%= image_tag('logo.png', size: "35") %>
-          <h3 style="padding-left: 0.5em">Unipoint</h3>
-        </div>
-      </div>
-      <div class="list-group" style="margin-top: 2em">
-        <button type="button" class="list-group-item list-group-item-action" >
+  <title>UniPoint</title>
+
+  <%= stylesheet_link_tag 'login', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+      #footer{
+          background-image: url("logo.png");
+          background-repeat: repeat;
+          position:absolute;
+          bottom:0;
+          height: 5em;
+          width: 93%;
+
+          /*background-color: red;*/
+      }
+  </style>
+</head>
+<body bgcolor="#f0f8ff">
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <a href="/aluno/index" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none" style="margin-top: 2em; padding-left: 2em">
+          <%= image_tag('logo.png', size: "40") %> <br/>
+          <span class="fs-5 d-none d-sm-inline" style="color: black; padding-left: 1em">Unipoint</span>
+        </a>
+        <button type="button" class="list-group-item list-group-item-action" style="border: none; padding-bottom: 1em; margin-top: 4em">
           <%= image_tag('home-solid.svg', size: "20") %>
           Home
         </button>
-        <button type="button" class="list-group-item list-group-item-action">
+        <button type="button" class="list-group-item list-group-item-action" style="border: none; padding-bottom: 1em">
           <%= image_tag('bell-solid.svg', size: "20") %>
           Notificações
-          <span class="badge bg-dark">4</span>
         </button>
-        <button type="button" class="list-group-item list-group-item-action">
+        <button type="button" class="list-group-item list-group-item-action" style="border: none; padding-bottom: 1em">
           <%= image_tag('chalkboard-solid.svg', size: "20") %>
           Turmas
         </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          <%= image_tag('history-solid.svg', size: "20") %>
-          Histórico
-        </button>
-        <a type="button" class="list-group-item list-group-item-action" href="/logout/index">
-          <%= image_tag('logout.svg', size: "20") %>
-          Sair
-        </a>
       </div>
     </div>
-    <div class="col-md-6" style="width: 570px">
-      <div class="container">
-        <h1>Olá <%=@primeiroNome %> 😀</h1>
-      </div>
 
-      <div class="row" style="margin-top: 1.5em; text-align: center">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">Turma <%=@horario %></div>
-            <div class="card-body">
-              <h5 class="card-title"><%=@disciplina %></h5>
-              <p class="card-text">Aqui ficará o status da presença (Aberto/Fechado)</p>
-              <% if @marcacao == true && @ponto == true && @semDic == 1 then %>
-                <form method="post" action="/dashboard_aluno/">
-                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                  <input type="text" name="disciplina" value="<%=@id_disciplina %>" hidden>
-                  <input type="text" name="tipo" value="<%=@tipo %>" hidden>
-                  <button type="submit" class="btn btn-primary">Confirmar presença</button>
-                </form>
-              <%else
-                  if @ponto == false then%>
-                  <button type="button" class="btn btn-success" disabled>Presença Confirmada</button>
-                  <%end
-                    if @semDic == 0 then%>
-                  <button type="button" class="btn btn-success" disabled>Você Não Tem Disciplinas Neste Horário</button>
-                <%end %>
 
-              <% end %>
-              <%=@respostaMark %>
+    <div class="col py-3" style="background-color: #E8EDF5">
+      <div class="col" style="margin-left: 2em; margin-right: 2em">
+        <div class="row" style="max-width: 100em">
+          <div class="col" style="margin-top: 1em">
+            <h1>Dashboard</h1>
+          </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col" style="margin-top: 1.5em; display: flex; justify-content: flex-end; align-items: center">
+            <div class="dropdown" style="margin-left: 1em">
+              <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                <span class="d-none d-sm-inline mx-1" style="padding-left: 1em; color: black"><%=@nome %></span>
+              </a>
+              <ul class="dropdown-menu text-small shadow">
+                <li><a class="dropdown-item" href="#">Configurações</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Sair</a></li>
+              </ul>
             </div>
-            <div class="card-footer text-muted"><%= Time.now.strftime("%d/%m/%Y") %></div>
           </div>
         </div>
       </div>
-      <div class="row" style="width: 570px; margin-top: 2em">
-        <div class="overflow-auto">
-          <ul class="list-group">
-            <h4>Próxima aula</h4>
-            <li class="list-group-item">N4CD - Teste de validação de sistemas</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="row" style="text-align: center">
-        <div class="rounded-circle" style="border-radius: 100px">
-          <%= image_tag('profile-pic.jpg', size: "60") %>
-        </div>
-      </div>
-      <div class="row" style="text-align: center; margin-bottom: 1em">
-        <h3><%=@nome %></h3>
-      </div>
-      <div class="row" style="margin-bottom: 0.5em">
-        <div class="col">
-          Nome:
-        </div>
-        <div class="col" style="text-align: end">
-          <strong><%=@nome %></strong>
-        </div>
-      </div>
 
-      <div class="row" style="margin-bottom: 0.5em">
-        <div class="col">
-          Matrícula:
+      <div class="row" style="margin-left: 1em">
+        <div class="col-md-3">
+          <div class="card" style="margin-top: 4em; border: none; background-color: #c2defc">
+            <div class="card-body">
+              <h5 class="card-title">Criação de aplicativo android</h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%=@horario %> - <%=@disciplina %></h6>
+              <p class="card-text"  style="margin-top: 1em">Ideação e confecção do projeto de PA2.</p>
+              <div class="row" style="margin-top: 2em">
+                <div class="col-md-4" style="display: flex; align-items: center">
+                  <ul class="list-group list-group-horizontal">
+                    <li  style="display: inline">
+                      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                    </li>
+                  </ul>
+                </div>
+                <div class="col" style="display: flex; justify-content: flex-end">
+                  <% if @marcacao == true && @ponto == true && @semDic == 1 then %>
+                    <form method="post" action="/dashboard_aluno/">
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <input type="text" name="disciplina" value="<%=@id_disciplina %>" hidden>
+                      <input type="text" name="tipo" value="<%=@tipo %>" hidden>
+                      <button type="submit" class="btn btn-primary">Confirmar presença</button>
+                    </form>
+                  <%else
+                      if @ponto == false then%>
+                      <button type="button" class="btn btn-primary" style="background-color: #060A39; border: none" disabled>Presença Confirmada</button>
+                    <%end
+                      if @semDic == 0 then%>
+                      <button type="button" class="btn btn-primary" style="background-color: #060A39; border: none">Você Não Tem Disciplinas Neste Horário</button>
+                    <%end %>
+                  <% end %>
+                  <%=@respostaMark %>
+                </div>
+                <div class="card-footer text-muted"><%= Time.now.strftime("%d/%m/%Y") %></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col" style="text-align: end">
-          <strong><%=session[:user] %></strong>
-        </div>
-      </div>
 
-      <div class="row" style="margin-bottom: 0.5em">
-        <div class="col">
-          Email:
+        <div class="col-md-3">
+          <div class="card" style="margin-top: 4em; border: none; background-color: #c2defc">
+            <div class="card-body">
+              <h5 class="card-title">Banco de dados SQLITE</h5>
+              <h6 class="card-subtitle mb-2 text-muted">N24AB</h6>
+              <p class="card-text"  style="margin-top: 1em">Conexão com a aplicação nativa.</p>
+              <div class="row" style="margin-top: 2em">
+                <div class="col-md-4" style="display: flex; align-items: center">
+                  <ul class="list-group list-group-horizontal">
+                    <li  style="display: inline">
+                      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                    </li>
+                  </ul>
+                </div>
+                <div class="col" style="display: flex; justify-content: flex-end">
+                  <button type="button" class="btn btn-primary" disabled style="background-color: #060A39; border: none">Abrir presença</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col" style="text-align: end">
-          <strong><%=@email %></strong>
+
+      </div>
+      <div class="col-md" style="text-align: center; margin-left: 1.5em">
+        <div class="row" style="margin-top: 2em">
+          <div class="overflow-auto">
+            <div class="card" style="background-color: #eef0f5; border: none">
+              <h5 class="card-title" style="padding-top: 1em; display: flex; justify-content: flex-start; padding-left: 1em">Histórico de presença</h5>
+              <table class="table">
+                <thead>
+                <th>Disciplina</th>
+                <th>Data da presença</th>
+                <th>Horário da presença</th>
+                <th>Presentes</th>
+                <th>Localização</th>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="padding-top: 1em">N6ABCD</td>
+                  <td style="padding-top: 1em">22/10/2021</td>
+                  <td style="padding-top: 1em">22:00:55</td>
+                  <td style="padding-top: 1em">8/20</td>
+                  <td>
+                    <button class="btn">
+                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
+                      Av. Washington soares
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1em">N2AB</td>
+                  <td style="padding-top: 1em">23/10/2021</td>
+                  <td style="padding-top: 1em">18:32:55</td>
+                  <td style="padding-top: 1em">12/20</td>
+                  <td>
+                    <button class="btn">
+                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
+                      Av. Washington soares
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1em">N2CD</td>
+                  <td style="padding-top: 1em">24/10/2021</td>
+                  <td style="padding-top: 1em">18:37:31</td>
+                  <td style="padding-top: 1em">6/20</td>
+                  <td>
+                    <button class="btn">
+                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
+                      Av. Washington soares
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
+</div>
 </div>
 
 <!-- Optional JavaScript; choose one of the two! -->
