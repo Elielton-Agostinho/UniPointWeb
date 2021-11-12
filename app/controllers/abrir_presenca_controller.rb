@@ -1,4 +1,6 @@
 class AbrirPresencaController < ApplicationController
+  require 'time'
+  ENV["TZ"] = "America/Sao_Paulo"
   def create
     puts params['professor']
 

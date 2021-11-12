@@ -1,6 +1,8 @@
 class DashboardAlunoController < ApplicationController
   PRODUCAO = 'https://unipointapi.herokuapp.com'
   HOMOLOGACAO = 'http://localhost:5000'
+  require 'time'
+  ENV["TZ"] = "America/Sao_Paulo"
   def index
     if session[:user].nil? == true or session[:user] == ''
       session.delete(:user)

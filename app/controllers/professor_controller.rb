@@ -1,4 +1,6 @@
 class ProfessorController < ApplicationController
+  require 'time'
+  ENV["TZ"] = "America/Sao_Paulo"
   def index
     if session[:user].nil? == true or session[:user] == ''
       session.delete(:user)
@@ -121,9 +123,9 @@ class ProfessorController < ApplicationController
           validaPeriodo = false
         end
 
-        disciplinaAberta(matricula,id["ID"],codigoDisciplina)
+        id_chmd = disciplinaAberta(matricula,id["ID"],codigoDisciplina)
 
-        obj.push({"id"=>id["ID"],"nome"=>id["NOME"],"cod"=>id["COD_DISC"],"id_chmd"=>@id_chmd,"valida_periodo"=>validaPeriodo}) #,"marcacao"=>@marcacao,"ponto"=>@ponto
+        obj.push({"id"=>id["ID"],"nome"=>id["NOME"],"cod"=>id["COD_DISC"],"id_chmd"=>id_chmd,"valida_periodo"=>validaPeriodo}) #,"marcacao"=>@marcacao,"ponto"=>@ponto
       end
       #puts obj
       @card = obj
@@ -142,7 +144,7 @@ class ProfessorController < ApplicationController
 
     retorno = r[0]
 
-    @id_chmd = retorno["RETORNO"]
+    return retorno["RETORNO"]
 
   end
 

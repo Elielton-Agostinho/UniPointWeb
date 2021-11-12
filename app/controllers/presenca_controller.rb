@@ -1,4 +1,6 @@
 class PresencaController < ApplicationController
+  require 'time'
+  ENV["TZ"] = "America/Sao_Paulo"
   def create
     puts params['id_chamada']
 
