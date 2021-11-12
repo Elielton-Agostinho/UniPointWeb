@@ -80,7 +80,7 @@ class DashboardAlunoController < ApplicationController
   def getDisciplina(matricula,codDisc)
     require 'http'
 
-    response = HTTP.post("https://unipointapi.herokuapp.com/getDisciplina", :form => {'matricula' => matricula, "cd_disciplina" => 'M4'})
+    response = HTTP.post("https://unipointapi.herokuapp.com/getDisciplina", :form => {'matricula' => matricula, "cd_disciplina" => codDisc})
     response.body # retorna um objeto representando a resposta
     response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
 
