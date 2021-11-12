@@ -2,7 +2,7 @@ class DashboardAlunoController < ApplicationController
   PRODUCAO = 'https://unipointapi.herokuapp.com'
   HOMOLOGACAO = 'http://localhost:5000'
   require 'time'
-  ENV["TZ"] = "America/Sao_Paulo"
+  ENV["TZ"] = "America/Fortaleza"
   def index
     if session[:user].nil? == true or session[:user] == ''
       session.delete(:user)
@@ -16,6 +16,7 @@ class DashboardAlunoController < ApplicationController
       dia = d.strftime("%A")
       hora = d.strftime("%H")
       horaMin = d.strftime("%H,%M")
+
 
       semanaD = {"Monday" => 2,"Tuesday" => 3,"Wednesday" => 4, "Thursday" => 5, "Friday" => 6, "Saturday" => 7}
 
@@ -51,8 +52,10 @@ class DashboardAlunoController < ApplicationController
 
   def create
     puts params['disciplina']
+    d = DateTime.now
+    horarioLocal = d.strftime("%Y-%m-%d %H:%M:%S")
 
-    setPonto(session[:user],params['disciplina'],params['tipo'])
+    setPonto(session[:user],params['disciplina'],params['tipo'],horarioLocal)
 
     redirect_to '/dashboard_aluno/index'
   end
@@ -155,10 +158,10 @@ class DashboardAlunoController < ApplicationController
 
   end
 
-  def setPonto(matricula,disciplina,tipo)
+  def setPonto(matricula,disciplina,tipo,hora)
     require 'http'
 
-    response = HTTP.post("https://unipointapi.herokuapp.com/setPonto", :form => {'matricula' => matricula,'disciplina' => disciplina, 'tipo' => tipo})
+    response = HTTP.post("https://unipointapi.herokuapp.com/setPonto", :form => {'matricula' => matricula,'disciplina' => disciplina, 'tipo' => tipo,"horario"=>hora})
     response.body # retorna um objeto representando a resposta
     response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
 
@@ -188,33 +191,23 @@ class DashboardAlunoController < ApplicationController
 
     @tbLinhaPresenca = ''
 
-    puts retorno
+    #puts retorno
     #podeMarcar(retorno["id_disciplina"])
     if retorno["vazio"] then
       @tbLinhaPresenca = '<td style="padding-top: 1em">'+retorno["retorno"]+'</td>'
     else
-
+      obj = []
       for i in 0..((r.size) -1)
         ret = JSON.parse(response.body)
         dados = ret[i]
         data = DateTime.parse(dados["DATA"])
         dia = data.strftime("%d/%m/%Y")
         hora = data.strftime("%H:%M:%S")
-        puts dia
-        @tbLinhaPresenca = '<tr>
-                  <td style="padding-top: 1em">'+dados["COD_DISC"]+'</td>
-                  <td style="padding-top: 1em">'+dia+'</td>
-                  <td style="padding-top: 1em">'+hora+'</td>
-                  <td style="padding-top: 1em">8/20</td>
-                  <td>
-                    <button class="btn">
-                       <!--image_tag("map-marker-alt-solid.svg", size: "15")-->
-                     Av. Washington soares
-                    </button>
-                  </td>
-                </tr>'
-      end
+        #puts dia
 
+        obj.push({"cod_disc"=>dados["COD_DISC"],"dia"=>dia,"hora"=>hora})
+      end
+      @tbLinhaPresenca = obj
     end
   end
 

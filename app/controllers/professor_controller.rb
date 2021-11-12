@@ -1,6 +1,6 @@
 class ProfessorController < ApplicationController
   require 'time'
-  ENV["TZ"] = "America/Sao_Paulo"
+  ENV["TZ"] = "America/Fortaleza"
   def index
     if session[:user].nil? == true or session[:user] == ''
       session.delete(:user)

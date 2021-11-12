@@ -139,7 +139,21 @@
                 <th>Localização</th>
                 </thead>
                 <tbody>
-                <%=@tbLinhaPresenca.html_safe %>
+                <% @tbLinhaPresenca.nil? == true ? nil : @tbLinhaPresenca.each do |ponto| %>
+                <tr>
+                  <td style="padding-top: 1em"><%=ponto["cod_disc"] %></td>
+                  <td style="padding-top: 1em"><%=ponto["dia"] %></td>
+                  <td style="padding-top: 1em"><%=ponto["hora"] %></td>
+                  <td style="padding-top: 1em">8/20</td>
+                  <td>
+                    <button class="btn">
+                      <%= image_tag("map-marker-alt-solid.svg", size: "15")%>
+                      Av. Washington soares
+                    </button>
+                  </td>
+                </tr>
+
+                <% end %>
                 </tbody>
               </table>
             </div>
