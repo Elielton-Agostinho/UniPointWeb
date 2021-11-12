@@ -65,7 +65,7 @@ class ProfessorController < ApplicationController
   def getDisciplina(matricula,codDisc)
     require 'http'
 
-    response = HTTP.post("http://localhost:5000/getDisciplinaProf", :form => {'matricula' => matricula, "cd_disciplina" => codDisc})
+    response = HTTP.post("https://unipointapi.herokuapp.com/getDisciplinaProf", :form => {'matricula' => matricula, "cd_disciplina" => codDisc})
     response.body # retorna um objeto representando a resposta
     response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
 
@@ -134,7 +134,7 @@ class ProfessorController < ApplicationController
   def disciplinaAberta(matricula,disciplina,codigoDisciplina)
     require 'http'
 
-    response = HTTP.post("http://localhost:5000/verificaDisciplianAberta", :form => {'matricula' => matricula, "cd_disciplina" => disciplina,"cod_disc_comp"=>codigoDisciplina})
+    response = HTTP.post("https://unipointapi.herokuapp.com/verificaDisciplianAberta", :form => {'matricula' => matricula, "cd_disciplina" => disciplina,"cod_disc_comp"=>codigoDisciplina})
     response.body # retorna um objeto representando a resposta
     response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
 
