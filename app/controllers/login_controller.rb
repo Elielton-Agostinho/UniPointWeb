@@ -3,7 +3,6 @@ class LoginController < ApplicationController
     if session[:user]
       redirect_to '/dashboard_aluno/index'
     end
-    render 'login/index'
   end
 
   def create

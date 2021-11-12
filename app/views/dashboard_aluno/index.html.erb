@@ -68,7 +68,7 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Sair</a></li>
+                <li><a class="dropdown-item" href="/logout/index">Sair</a></li>
               </ul>
             </div>
           </div>
@@ -76,37 +76,44 @@
       </div>
 
       <div class="row" style="margin-left: 1em">
-        <div class="col-md-3">
+        <% @semDic == 0 ? nil : @card.each do |disciplinas| %>
+
+        <div class="col-md-4">
           <div class="card" style="margin-top: 4em; border: none; background-color: #c2defc">
             <div class="card-body">
-              <h5 class="card-title">Criação de aplicativo android</h5>
-              <h6 class="card-subtitle mb-2 text-muted"><%=@horario %> - <%=@disciplina %></h6>
-              <p class="card-text"  style="margin-top: 1em">Ideação e confecção do projeto de PA2.</p>
+              <h5 class="card-title"><%=disciplinas['nome'] %></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%=disciplinas['cod'] %></h6>
               <div class="row" style="margin-top: 2em">
-                <div class="col-md-4" style="display: flex; align-items: center">
+                <!--<div class="col-md-4" style="display: flex; align-items: center">
                   <ul class="list-group list-group-horizontal">
                     <li  style="display: inline">
                       <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
                       <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
                     </li>
                   </ul>
-                </div>
+                </div>-->
                 <div class="col" style="display: flex; justify-content: flex-end">
-                  <% if @marcacao == true && @ponto == true && @semDic == 1 then %>
+
+                  <% if disciplinas['marcacao'] == true && disciplinas['ponto'] == true && @semDic == 1 then %>
                     <form method="post" action="/dashboard_aluno/">
                       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                      <input type="text" name="disciplina" value="<%=@id_disciplina %>" hidden>
+                      <input type="text" name="disciplina" value="<%=disciplinas['cod_chamada'] %>" hidden>
                       <input type="text" name="tipo" value="<%=@tipo %>" hidden>
-                      <button type="submit" class="btn btn-primary">Confirmar presença</button>
+                      <button type="submit" class="btn btn-primary" style="background-color: #060A39; border: none;">Confirmar presença</button>
                     </form>
                   <%else
-                      if @ponto == false then%>
+                      if disciplinas['ponto'] == false then%>
                       <button type="button" class="btn btn-primary" style="background-color: #060A39; border: none" disabled>Presença Confirmada</button>
                     <%end
                       if @semDic == 0 then%>
                       <button type="button" class="btn btn-primary" style="background-color: #060A39; border: none">Você Não Tem Disciplinas Neste Horário</button>
-                    <%end %>
+                    <%end
+                      if disciplinas['marcacao'] == false then
+                    %>
+                      <button type="button" class="btn btn-primary" style="background-color: #060A39; border: none" disabled>Disciplina Fechada Para Marcação</button>
+                    <%end%>
                   <% end %>
+
                   <%=@respostaMark %>
                 </div>
                 <div class="card-footer text-muted"><%= Time.now.strftime("%d/%m/%Y") %></div>
@@ -114,29 +121,8 @@
             </div>
           </div>
         </div>
+        <% end %>
 
-        <div class="col-md-3">
-          <div class="card" style="margin-top: 4em; border: none; background-color: #c2defc">
-            <div class="card-body">
-              <h5 class="card-title">Banco de dados SQLITE</h5>
-              <h6 class="card-subtitle mb-2 text-muted">N24AB</h6>
-              <p class="card-text"  style="margin-top: 1em">Conexão com a aplicação nativa.</p>
-              <div class="row" style="margin-top: 2em">
-                <div class="col-md-4" style="display: flex; align-items: center">
-                  <ul class="list-group list-group-horizontal">
-                    <li  style="display: inline">
-                      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                    </li>
-                  </ul>
-                </div>
-                <div class="col" style="display: flex; justify-content: flex-end">
-                  <button type="button" class="btn btn-primary" disabled style="background-color: #060A39; border: none">Abrir presença</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
       <div class="col-md" style="text-align: center; margin-left: 1.5em">
@@ -153,42 +139,7 @@
                 <th>Localização</th>
                 </thead>
                 <tbody>
-                <tr>
-                  <td style="padding-top: 1em">N6ABCD</td>
-                  <td style="padding-top: 1em">22/10/2021</td>
-                  <td style="padding-top: 1em">22:00:55</td>
-                  <td style="padding-top: 1em">8/20</td>
-                  <td>
-                    <button class="btn">
-                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
-                      Av. Washington soares
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1em">N2AB</td>
-                  <td style="padding-top: 1em">23/10/2021</td>
-                  <td style="padding-top: 1em">18:32:55</td>
-                  <td style="padding-top: 1em">12/20</td>
-                  <td>
-                    <button class="btn">
-                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
-                      Av. Washington soares
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1em">N2CD</td>
-                  <td style="padding-top: 1em">24/10/2021</td>
-                  <td style="padding-top: 1em">18:37:31</td>
-                  <td style="padding-top: 1em">6/20</td>
-                  <td>
-                    <button class="btn">
-                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
-                      Av. Washington soares
-                    </button>
-                  </td>
-                </tr>
+                <%=@tbLinhaPresenca.html_safe %>
                 </tbody>
               </table>
             </div>

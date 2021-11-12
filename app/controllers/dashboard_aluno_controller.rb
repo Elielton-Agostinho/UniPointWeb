@@ -36,18 +36,12 @@ class DashboardAlunoController < ApplicationController
       when 21..22,30 then periodo = "CD"
       end
 
-      codigoDisciplina = turno+semanaD[dia].to_s+periodo
+      codigoDisciplina = turno+semanaD[dia].to_s#+periodo
       puts codigoDisciplina
 
       getDisciplina(session[:user],codigoDisciplina)
 
-      if @semDic == 1 then
-        podeMarcar(@id_disciplina)
-
-        getPonto(session[:user],@id_disciplina)
-
-      end
-
+      getPresenca(session[:user])
 
 
     end
@@ -84,22 +78,37 @@ class DashboardAlunoController < ApplicationController
   def getDisciplina(matricula,codDisc)
     require 'http'
 
-    response = HTTP.post("https://unipointapi.herokuapp.com/getDisciplina", :form => {'matricula' => matricula, "cd_disciplina" => codDisc})
+    response = HTTP.post("https://unipointapi.herokuapp.com/getDisciplina", :form => {'matricula' => matricula, "cd_disciplina" => 'M4'})
     response.body # retorna um objeto representando a resposta
     response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
 
     r = JSON.parse(response.body)
 
     retorno = r[0]
-    puts "Retorno: ",r[0]
+
     @semDic = 1
+
     #podeMarcar(retorno["id_disciplina"])
     if retorno["vazio"] then
       @semDic = retorno["vazio"]
     else
-      @id_disciplina = retorno["id_disciplina"]
-      @disciplina = retorno["NOME"]
-      @horario = retorno["COD_DISC"]
+      #@id_disciplina = retorno["id_disciplina"]
+      #@disciplina = retorno["NOME"]
+      #@horario = retorno["COD_DISC"]
+      obj = []
+
+      for i in 0..((r.size) -1)
+        ret = JSON.parse(response.body)
+        id = ret[i]
+        puts id
+        podeMarcar(id["ID"])
+
+        getPonto(session[:user],id["ID"])
+        obj.push({"id"=>id["ID"],"nome"=>id["NOME"],"cod"=>id["COD_DISC"],"cod_chamada"=>id["CHAMADA"],"marcacao"=>@marcacao,"ponto"=>@ponto})
+      end
+      puts obj
+      @card = obj
+      #puts @card
     end
 
 
@@ -155,12 +164,56 @@ class DashboardAlunoController < ApplicationController
 
     #retorno = r[0]
     @respostaMark = response.body
+    puts @respostaMark
     #if retorno["PONTO"] == 0 then
     #  @ponto = true
     #else
     #  @ponto = false
     #end
 
+  end
+
+  def getPresenca(matricula)
+    require 'http'
+
+    response = HTTP.post("https://unipointapi.herokuapp.com/getPonto", :form => {'matricula' => matricula})
+    response.body # retorna um objeto representando a resposta
+    response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
+
+    r = JSON.parse(response.body)
+
+    retorno = r[0]
+
+    @tbLinhaPresenca = ''
+
+    puts retorno
+    #podeMarcar(retorno["id_disciplina"])
+    if retorno["vazio"] then
+      @tbLinhaPresenca = '<td style="padding-top: 1em">'+retorno["retorno"]+'</td>'
+    else
+
+      for i in 0..((r.size) -1)
+        ret = JSON.parse(response.body)
+        dados = ret[i]
+        data = DateTime.parse(dados["DATA"])
+        dia = data.strftime("%d/%m/%Y")
+        hora = data.strftime("%H:%M:%S")
+        puts dia
+        @tbLinhaPresenca = '<tr>
+                  <td style="padding-top: 1em">'+dados["COD_DISC"]+'</td>
+                  <td style="padding-top: 1em">'+dia+'</td>
+                  <td style="padding-top: 1em">'+hora+'</td>
+                  <td style="padding-top: 1em">8/20</td>
+                  <td>
+                    <button class="btn">
+                       <!--image_tag("map-marker-alt-solid.svg", size: "15")-->
+                     Av. Washington soares
+                    </button>
+                  </td>
+                </tr>'
+      end
+
+    end
   end
 
 end
