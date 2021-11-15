@@ -1,11 +1,17 @@
 class ProfessorController < ApplicationController
   require 'time'
   ENV["TZ"] = "America/Fortaleza"
+
+  require 'dotiw'
+  include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::NumberHelper
+
   def index
     if session[:user].nil? == true or session[:user] == ''
       session.delete(:user)
 
-      redirect_to '/login/index'
+      redirect_to '/login_prof/index'
     else
       getUsuario(session[:user])
 
@@ -13,6 +19,8 @@ class ProfessorController < ApplicationController
       dia = d.strftime("%A")
       hora = d.strftime("%H")
       horaMin = d.strftime("%H,%M")
+
+      @tdData = d.strftime("%d/%m/%Y")
 
       semanaD = {"Monday" => 2,"Tuesday" => 3,"Wednesday" => 4, "Thursday" => 5, "Friday" => 6, "Saturday" => 7}
 
@@ -40,8 +48,25 @@ class ProfessorController < ApplicationController
 
       getDisciplina(session[:user],codigoDisciplina)
 
-
+      getTipoPonto(session[:user],d.strftime("%Y-%m-%d"))
+      getPonto(session[:user],d.strftime("%Y-%m-%d"))
     end
+  end
+
+  def create
+    tipo = params['tipoPontoPr']
+
+    if tipo == 'E1' then
+      puts 'Isert TB_Ponto_Professor'
+    else
+
+      d = DateTime.now
+      hora = d.strftime("%H:%M:%S")
+      data = d.strftime("%Y-%m-%d")
+
+      setTipoPp(session[:user],data,hora,tipo)
+    end
+
   end
 
   def getUsuario(matricula)
@@ -148,5 +173,88 @@ class ProfessorController < ApplicationController
 
   end
 
+  def getTipoPonto(matricula,data)
+    require 'http'
+
+    response = HTTP.post("https://unipointapi.herokuapp.com/getTipoPontoProfessor", :form => {'matricula' => matricula, "data" => data})
+    response.body # retorna um objeto representando a resposta
+    response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
+
+    r = JSON.parse(response.body)
+
+    retorno = r[0]
+
+    @tipoPontoP = retorno["RETORNO"]
+
+    #puts @tipoPontoP
+  end
+
+  def setTipoPp(matricula,data,hora,tipo)
+    require 'http'
+
+    response = HTTP.post("https://unipointapi.herokuapp.com/setTipoPontoProfessorAux", :form => {'matricula' => matricula, "data" => data,"hora"=>hora,"tipo"=>tipo})
+    response.body # retorna um objeto representando a resposta
+    response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
+
+    @respostaMarcaPonto = response.body
+    #puts @respostaMarcaPonto
+  end
+
+  def getPonto(matricula,data)
+    require 'http'
+
+
+    response = HTTP.post("https://unipointapi.herokuapp.com/getPontoProfessor", :form => {'matricula' => matricula, "data" => data})
+    response.body # retorna um objeto representando a resposta
+    response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
+
+    r = JSON.parse(response.body)
+
+    retorno = r[0]
+
+    if retorno["vazio"] then
+      @retPontoProf = retorno["retorno"]
+    else
+      obj = []
+
+      for i in 0..((r.size) -1)
+        ret = JSON.parse(response.body)
+        qry = ret[i]
+
+        data = qry["DATA"].to_date
+
+        jsonHorarios = getHorarios(qry["ID"])
+        hrIni = jsonHorarios[0]
+        ind = jsonHorarios.size - 1
+        hrFim = jsonHorarios[ind]
+        hr2 = hrFim['HORA'].to_time
+        hr = hrIni['HORA'].to_time
+        #puts hr,hr2
+        dif = distance_of_time_in_words(hr2, hr)
+        diferenca = dif.split(' and ')
+        diferencaH = diferenca[0].split(' ')
+        diferencaM = diferenca[1].split(' ')
+        dife = DateTime.parse(diferencaH[0].to_s+":"+diferencaM[0].to_s)
+        horasTrab = dife.strftime('%H:%M')
+        qryData = data.strftime("%d/%m/%Y")
+        obj.push({"data"=>qryData,"horarios"=>jsonHorarios,"horas_trabalhadas"=>horasTrab}) #,"marcacao"=>@marcacao,"ponto"=>@ponto
+      end
+      #puts obj
+      @tdHorarios = obj
+      #puts @tdHorarios
+    end
+  end
+
+  def getHorarios(id_ponto_professor)
+    require 'http'
+
+    response = HTTP.post("https://unipointapi.herokuapp.com/getHorariosPontoProfessor", :form => {'id_ponto' => id_ponto_professor})
+    response.body # retorna um objeto representando a resposta
+    response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
+
+    r = JSON.parse(response.body)
+    retorno = r
+    return retorno
+  end
 
 end

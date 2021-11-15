@@ -2,8 +2,10 @@ class LoginProfController < ApplicationController
   def index
     if session[:user]
       redirect_to '/professor/index'
+    else
+      render '/login_prof/index'
     end
-    render 'login_prof/index'
+
   end
 
   def create
@@ -24,7 +26,7 @@ class LoginProfController < ApplicationController
       redirect_to '/professor/index'
     else
       @resposta = 'Erro: Login ou senha estão incorretos'
-      render 'login_prof/index'
+      render '/login_prof/index'
     end
 
   end

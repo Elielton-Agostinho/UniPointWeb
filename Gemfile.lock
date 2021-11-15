@@ -81,6 +81,9 @@ GEM
     crass (1.0.6)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotiw (5.3.2)
+      activesupport
+      i18n
     erubi (1.10.0)
     ffi (1.15.4)
     ffi-compiler (1.0.1)
@@ -228,6 +231,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  dotiw
   http
   jbuilder (~> 2.7)
   listen (~> 3.3)

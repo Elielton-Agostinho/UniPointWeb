@@ -125,7 +125,11 @@
               <h5 class="card-title">Ponto Eletrônico</h5>
               <div class="row" style="margin-top: 2em">
                 <div class="col" style="display: flex; justify-content: flex-end">
-                  <button type="button" class="btn btn-primary" style="background-color: #060A39; border: none">Registrar Agora</button>
+                  <form action="/professor/" method="post">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <input value="<%=@tipoPontoP%>" name="tipoPontoPr" hidden>
+                    <button type="submit" class="btn btn-primary" style="background-color: #060A39; border: none">Registrar Agora</button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -136,52 +140,27 @@
         <div class="row" style="margin-top: 2em">
           <div class="overflow-auto">
             <div class="card" style="background-color: #eef0f5; border: none">
-              <h5 class="card-title" style="padding-top: 1em; display: flex; justify-content: flex-start; padding-left: 1em">Histórico de presença</h5>
+              <h5 class="card-title" style="padding-top: 1em; display: flex; justify-content: flex-start; padding-left: 1em">Histórico do Ponto</h5>
               <table class="table">
                 <thead>
-                <th>Disciplina</th>
-                <th>Data da presença</th>
-                <th>Horário da presença</th>
-                <th>Presentes</th>
-                <th>Localização</th>
+                <th>Data do Registro</th>
+                <th>Horário de Entrada 1</th>
+                <th>Horário de Saída 1</th>
+                <th>Horário de Entrada 2</th>
+                <th>Horário de Saída 2</th>
+                <th>H.T</th>
                 </thead>
                 <tbody>
+                <% @tdHorarios.each do |dataHorarios| %>
                 <tr>
-                  <td style="padding-top: 1em">N6ABCD</td>
-                  <td style="padding-top: 1em">22/10/2021</td>
-                  <td style="padding-top: 1em">22:00:55</td>
-                  <td style="padding-top: 1em">8/20</td>
-                  <td>
-                    <button class="btn">
-                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
-                      Av. Washington soares
-                    </button>
-                  </td>
+                  <td style="padding-top: 1em"><%= dataHorarios['data'] %></td>
+                  <% dataHorarios['horarios'].each do |horarios| %>
+                    <td style="padding-top: 1em"><%= horarios['HORA'] %></td>
+
+                  <%end %>
+                  <td style="padding-top: 1em"><%= dataHorarios['horas_trabalhadas'] %></td>
                 </tr>
-                <tr>
-                  <td style="padding-top: 1em">N2AB</td>
-                  <td style="padding-top: 1em">23/10/2021</td>
-                  <td style="padding-top: 1em">18:32:55</td>
-                  <td style="padding-top: 1em">12/20</td>
-                  <td>
-                    <button class="btn">
-                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
-                      Av. Washington soares
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1em">N2CD</td>
-                  <td style="padding-top: 1em">24/10/2021</td>
-                  <td style="padding-top: 1em">18:37:31</td>
-                  <td style="padding-top: 1em">6/20</td>
-                  <td>
-                    <button class="btn">
-                      <%= image_tag('map-marker-alt-solid.svg', size: "15") %>
-                      Av. Washington soares
-                    </button>
-                  </td>
-                </tr>
+                <% end %>
                 </tbody>
               </table>
             </div>

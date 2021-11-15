@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'dashboard_aluno', to: 'dashboard_aluno#create'
   post 'login', to: 'login#create'
   post 'presenca', to: 'presenca#create'
+  post 'professor', to: 'professor#create'
   post 'abrir_presenca', to: 'abrir_presenca#create'
 
 
