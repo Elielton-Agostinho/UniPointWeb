@@ -55,18 +55,17 @@ class ProfessorController < ApplicationController
 
   def create
     tipo = params['tipoPontoPr']
+    d = DateTime.now
+    hora = d.strftime("%H:%M:%S")
+    data = d.strftime("%Y-%m-%d")
 
     if tipo == 'E1' then
       puts 'Isert TB_Ponto_Professor'
+      setPontoPpr(session[:user],data,hora)
     else
-
-      d = DateTime.now
-      hora = d.strftime("%H:%M:%S")
-      data = d.strftime("%Y-%m-%d")
-
       setTipoPp(session[:user],data,hora,tipo)
     end
-
+    redirect_to '/professor/index'
   end
 
   def getUsuario(matricula)
@@ -200,6 +199,21 @@ class ProfessorController < ApplicationController
     #puts @respostaMarcaPonto
   end
 
+  def setPontoPpr(matricula,data,hora)
+    require 'http'
+
+    response = HTTP.post("https://unipointapi.herokuapp.com/setTipoPontoProfessor", :form => {'matricula' => matricula, "data" => data})
+    response.body # retorna um objeto representando a resposta
+    response.code # retorna o código HTTP da resposta, e.g. 404, 500, 200
+
+    if response.code == 200 then
+      setTipoPp(matricula,data,hora,'E')
+    end
+
+    @respostaMarcaPonto = response.body
+    puts @respostaMarcaPonto
+  end
+
   def getPonto(matricula,data)
     require 'http'
 
@@ -213,7 +227,8 @@ class ProfessorController < ApplicationController
     retorno = r[0]
 
     if retorno["vazio"] then
-      @retPontoProf = retorno["retorno"]
+      @retPontoProf = retorno["vazio"]
+      puts @retPontoProf
     else
       obj = []
 
@@ -232,11 +247,23 @@ class ProfessorController < ApplicationController
         #puts hr,hr2
         dif = distance_of_time_in_words(hr2, hr)
         diferenca = dif.split(' and ')
+        puts dif
         diferencaH = diferenca[0].split(' ')
-        diferencaM = diferenca[1].split(' ')
-        dife = DateTime.parse(diferencaH[0].to_s+":"+diferencaM[0].to_s)
-        horasTrab = dife.strftime('%H:%M')
+        parte2 = diferenca[1]
+        #puts parte2.nil?
+        if parte2.nil? == true then
+          dife = DateTime.parse('2021-11-15 00:'+diferencaH[0].to_s)
+          horasTrab = dife.strftime('H.T %M')
+        else
+          diferencaM = diferenca[1].split(' ')
+          dife = DateTime.parse(diferencaH[0].to_s+":"+diferencaM[0].to_s)
+          horasTrab = dife.strftime('%H:%M')
+        end
+
+
         qryData = data.strftime("%d/%m/%Y")
+        @blck = diferencaH[0].to_s
+        puts @blck
         obj.push({"data"=>qryData,"horarios"=>jsonHorarios,"horas_trabalhadas"=>horasTrab}) #,"marcacao"=>@marcacao,"ponto"=>@ponto
       end
       #puts obj
