@@ -116,7 +116,7 @@ class ProfessorController < ApplicationController
         d = DateTime.now
         dia = d.strftime("%A")
         hora = d.strftime("%H")
-        horaMin = d.strftime("%H,%M")
+        horaMin = d.strftime("%H.%M")
 
         semanaD = {"Monday" => 2,"Tuesday" => 3,"Wednesday" => 4, "Thursday" => 5, "Friday" => 6, "Saturday" => 7}
 
@@ -128,19 +128,20 @@ class ProfessorController < ApplicationController
         end
 
         periodo = ''
-        #puts horaMin
+        puts horaMin.to_f
         case horaMin.to_f # a_variable is the variable we want to compare
-        when 6,30..8,59 then periodo = "AB"
-        when 9..12,59  then periodo = "CD"
-        when 13..14,59  then periodo = "AB"
-        when 15..17,29  then periodo = "CD"
-        when 17,30..18,29 then periodo = "EF"
-        when 18,30..20,59 then periodo = "AB"
-        when 21..22,30 then periodo = "CD"
+        when 6.30..8.59 then periodo = "AB"
+        when 9..12.59  then periodo = "CD"
+        when 13..14.59  then periodo = "AB"
+        when 15..17.29  then periodo = "CD"
+        when 17.30..18.29 then periodo = "EF"
+        when 18.30..20.59 then periodo = "AB"
+        when 21..22.30 then periodo = "CD"
         end
-
+        puts periodo
         codigoDisciplina = turno+semanaD[dia].to_s+periodo
         validaPeriodo = 0
+        puts codigoDisciplina,id["COD_DISC"]
         if codigoDisciplina == id["COD_DISC"] then
           validaPeriodo = true
         else
@@ -153,7 +154,7 @@ class ProfessorController < ApplicationController
       end
       #puts obj
       @card = obj
-      #puts @card
+      puts @card
     end
   end
 

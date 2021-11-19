@@ -113,7 +113,7 @@ class DashboardAlunoController < ApplicationController
       end
       puts obj
       @card = obj
-      #puts @card
+      puts @card
     end
 
 
