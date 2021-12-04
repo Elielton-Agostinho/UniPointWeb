@@ -136,7 +136,7 @@ class ProfessorController < ApplicationController
         when 15..17.29  then periodo = "CD"
         when 17.30..18.29 then periodo = "EF"
         when 18.30..20.59 then periodo = "AB"
-        when 21..22.30 then periodo = "CD"
+        when 21..23.59 then periodo = "CD"
         end
         puts periodo
         codigoDisciplina = turno+semanaD[dia].to_s+periodo
